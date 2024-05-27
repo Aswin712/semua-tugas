@@ -1,55 +1,57 @@
-package org.example;
-
-import java.time.Period;
 import java.util.Scanner;
-import java.time.LocalDate;
 public class Main {
-    private static String[] args;
+
 
     public static void main(String[] args) {
-        Main.args = args;
-        String nama, jeniskelamin, tanggal;
-        int tahun, bulan, tanggalq;
-        int tahunq, bulanq;
 
-        Scanner input;
-        input = new Scanner(System.in);
-        System.out.print("Nama = ");
-        nama = input.nextLine();
-        System.out.print("Jenis kelamin (p/l) = ");
-        jeniskelamin = input.nextLine();
-        System.out.print("Tanggal lahir (yyyy-mm-dd) = ");
-        tanggal = input.nextLine();
+        Scanner input = new Scanner(System.in);
 
+        String usernameAdmin = "Admin";
+        String passwordAdmin = "Admin123";
+        int login;
 
-        String jenis;
-        switch (jeniskelamin) {
-            case "l":
-                jenis = "Laki Laki";
+        String[] nimmahasiswa = {"2023103770311024", "1234567890"};
+
+        System.out.println("=== Library System ===");
+        System.out.println("1. Login as Student");
+        System.out.println("2. Login as Admin");
+        System.out.println("3. Exit");
+        System.out.print("Choose Option (1-3): ");
+        login = input.nextInt();
+
+        switch (login){
+            case 1 :
+                System.out.print("Enter your NIM: ");
+                String masukkannim = input.nextLine();
+
+                boolean benaratausalah = false;
+                for ( String nim : nimmahasiswa){
+                    if (nim.equals(masukkannim)){
+                        benaratausalah = true;
+                        break;
+                    }
+                }
+
+                if (benaratausalah){
+                    System.out.println("Successfull login as Student");
+                } else {
+                    System.out.println("User Not Found");
+                }
                 break;
-            case "p":
-                jenis = "Perempuan";
+            case 2 :
+                System.out.println("Enter your NIM: ");
+                String masukkanAdmin = input.nextLine();
+                System.out.println("Enter your Password: ");
+                String paswordAdmin = input.nextLine();
+                if (masukkanAdmin.equals(usernameAdmin) && paswordAdmin.equals(passwordAdmin)){
+                    System.out.println("Successfull login as Admin");
+                } else {
+                    System.out.println("Admin user not found");
+                }
                 break;
-            default:
-                jenis = "tidak diketahui";
-                break;
+            case 3 :
+                System.out.println("Thank you");
+
         }
-
-        String[] tanggalArr= tanggal.split("-");
-        tahun = Integer.parseInt(tanggalArr[0]);
-        bulan = Integer.parseInt(tanggalArr[1]);
-        tanggalq = Integer.parseInt(tanggalArr[2]);
-
-        LocalDate today = LocalDate.now();
-
-        LocalDate tanggalLahir = LocalDate.of(tahun, bulan, tanggalq);
-
-        Period selisih = Period.between(tanggalLahir, today);
-        tahunq = selisih.getYears();
-        bulanq = selisih.getMonths();
-
-        System.out.println("Nama Anda = " + nama);
-        System.out.println("Jenis Kelamin = " + jenis);
-        System.out.println("Umur "+tahunq+" tahun "+ bulanq+ " bulan.");
     }
 }
